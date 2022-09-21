@@ -21,7 +21,7 @@ router.delete('/tasks/:taskId', TaskController.deleteTaskInstance);
 router.patch('/tasks/:taskId', TaskController.updateTaskInstance);
 
 
-// router.delete('/users/:userId/tasks', TaskController.deleteTaskInstancebyUser);
+router.delete('/users/:userId/tasks', TaskController.deleteTaskInstancebyUser);
 
 module.exports = router;
 

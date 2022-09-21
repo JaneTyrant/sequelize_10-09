@@ -61,31 +61,31 @@ module.exports.updateTaskInstance = async (req, res, next) => {
   }
 };
 
+module.exports.deleteTaskInstancebyUser = async (req, res, next) => {
+  try {
+    const {
+      params: { userId },
+    } = req;
+    const userTasks = await Task.findAll({
+      where: {
+        userId: userId,
+      },
+    });
+    const result = await userTasks.destroy();
+    if (!userTasks) {
+      next(createError(404, "Tasks not found!"));
+    }
+    res.status(200).send({ data: userTasks });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // module.exports.deleteTaskInstance = async (req, res, next) => {
 //   try {
 //     const { instanceTask } = req;
 //     const result = await instanceTask.destroy();
 //     res.status(200).send({ data: instanceTask });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-// module.exports.deleteTaskInstancebyUser = async (req, res, next) => {
-//   try {
-//     const {
-//       params: { userId },
-//     } = req;
-//     const userTasks = await Task.findAll({
-//       where: {
-//         userId: userId,
-//       },
-//     });
-//     const result = await userTasks.destroy();
-//     if (!userTasks) {
-//       next(createError(404, "Task not found!"));
-//     }
-//     res.status(200).send({ data: userTasks });
 //   } catch (error) {
 //     next(error);
 //   }
